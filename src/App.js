@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
 function App() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [fullName, setFullName] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (firstName && lastName) {
+      setFullName(`${firstName} ${lastName}`);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Full Name Display</h1>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="firstName">First Name:</label>
+        <input
+          type="text"
+          name="firstName"
+          id="firstName"
+          value={firstName}
+          onChange={(event) => setFirstName(event.target.value)}
+          required
+        />
+        <br />
+        <label htmlFor="lastName">Last Name:</label>
+        <input
+          type="text"
+          name="lastName"
+          id="lastName"
+          value={lastName}
+          onChange={(event) => setLastName(event.target.value)}
+          required
+        />
+        <br />
+        <button type="submit">Submit</button>
+      </form>
+      {fullName && <p>Hello, {fullName}!</p>}
     </div>
   );
 }
